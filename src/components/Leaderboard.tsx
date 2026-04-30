@@ -1,10 +1,40 @@
 'use client';
 
-import { Trophy, ArrowUpRight, Crown } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Trophy, ArrowUpRight, Crown, RefreshCw } from 'lucide-react';
 import { mockLeaderboard } from '@/lib/scoring';
 import { motion } from 'framer-motion';
 
+interface LeaderboardEntry {
+  address: string;
+  score: number;
+  badge: string;
+}
+
 export function Leaderboard() {
+  const [entries, setEntries] = useState<LeaderboardEntry[]>(() => {
+    // Initialize directly from localStorage to avoid setState in effect
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('walletgrade_leaderboard');
+      if (stored) return JSON.parse(stored);
+      const initial = mockLeaderboard;
+      localStorage.setItem('walletgrade_leaderboard', JSON.stringify(initial));
+      return initial;
+    }
+    return mockLeaderboard;
+  });
+
+  useEffect(() => {
+    // Listener for new submissions from Dashboard
+    const handleUpdate = () => {
+      const updated = localStorage.getItem('walletgrade_leaderboard');
+      if (updated) setEntries(JSON.parse(updated));
+    };
+
+    window.addEventListener('leaderboardUpdated', handleUpdate);
+    return () => window.removeEventListener('leaderboardUpdated', handleUpdate);
+  }, []);
+
   return (
     <div id="leaderboard" className="w-full max-w-7xl mx-auto px-4 py-12">
       <div className="glass-morphism p-8 space-y-8">
@@ -14,10 +44,16 @@ export function Leaderboard() {
               <Trophy className="w-6 h-6 text-yellow-400" />
               Global Leaderboard
             </h3>
-            <p className="text-sm text-white/40 text-nowrap">Highest reputation wallets on-chain</p>
+            <div className="flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <p className="text-sm text-white/40">Live Rankings</p>
+            </div>
           </div>
-          <button className="text-sm font-bold text-neon-blue hover:neon-text-blue flex items-center gap-1 transition-all">
-            View All <ArrowUpRight className="w-4 h-4" />
+          <button 
+            onClick={() => window.dispatchEvent(new Event('leaderboardUpdated'))}
+            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all group"
+          >
+            <RefreshCw className="w-4 h-4 text-white/40 group-hover:rotate-180 transition-transform duration-500" />
           </button>
         </div>
 
@@ -33,12 +69,12 @@ export function Leaderboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
-              {mockLeaderboard.map((item, index) => (
+              {entries.sort((a, b) => b.score - a.score).map((item, index) => (
                 <motion.tr 
-                  key={item.address}
+                  key={`${item.address}-${index}`}
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
                   className="group hover:bg-white/[0.02] transition-colors"
                 >
                   <td className="py-6">

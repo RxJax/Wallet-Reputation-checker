@@ -1,7 +1,7 @@
 'use client';
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Shield, LayoutDashboard, Trophy, Github } from 'lucide-react';
+import { Shield, LayoutDashboard, Trophy } from 'lucide-react';
 import Link from 'next/link';
 
 export function Navbar() {

@@ -14,7 +14,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 const config = getDefaultConfig({
   appName: 'WalletGrade',
-  projectId: 'YOUR_PROJECT_ID', // In a real app, this would come from an env var
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '',
   chains: [mainnet, polygon, arbitrum, optimism, base],
   transports: {
     [mainnet.id]: http(),

@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 import { Navbar } from '@/components/Navbar';
 import { Dashboard } from '@/components/Dashboard';
 import { Leaderboard } from '@/components/Leaderboard';
-import { Shield, Zap, Lock, Globe, ChevronRight } from 'lucide-react';
+import { Shield, Zap, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
             transition={{ delay: 0.1 }}
             className="text-5xl md:text-7xl font-black tracking-tighter"
           >
-            Know Your <span className="neon-text-blue">Wallet's</span> <br />
+            Know Your <span className="neon-text-blue">Wallet&apos;s</span> <br />
             True <span className="neon-text-purple italic">Worth.</span>
           </motion.h1>
 
