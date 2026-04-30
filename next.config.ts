@@ -7,10 +7,12 @@ const nextConfig: NextConfig = {
     '@walletconnect/universal-provider',
     '@walletconnect/ethereum-provider'
   ],
-  webpack: (config) => {
-    config.externals.push('pino-pretty', 'lokijs', 'encoding', '@react-native-async-storage/async-storage');
-    return config;
-  },
+  serverExternalPackages: [
+    'pino-pretty',
+    'lokijs',
+    'encoding',
+    '@react-native-async-storage/async-storage'
+  ],
 };
 
 export default nextConfig;
