@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-blue: #00f3ff;
+  --color-neon-purple: #bc13fe;
+  --color-dark-bg: #050505;
+  --color-card-bg: rgba(15, 15, 15, 0.7);
+  
+  --shadow-neon-blue: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+  --shadow-neon-purple: 0 0 10px #bc13fe, 0 0 20px #bc13fe;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+.glass-morphism {
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+.neon-border-blue {
+  border: 1px solid #00f3ff;
+  box-shadow: 0 0 5px #00f3ff;
+}
+
+.neon-border-purple {
+  border: 1px solid #bc13fe;
+  box-shadow: 0 0 5px #bc13fe;
+}
+
+.neon-text-blue {
+  color: #00f3ff;
+  text-shadow: 0 0 8px #00f3ff;
+}
+
+.neon-text-purple {
+  color: #bc13fe;
+  text-shadow: 0 0 8px #bc13fe;
+}
+
+.glow-bg-blue {
+  background: radial-gradient(circle at center, rgba(0, 243, 255, 0.15) 0%, transparent 70%);
+}
+
+.glow-bg-purple {
+  background: radial-gradient(circle at center, rgba(188, 19, 254, 0.15) 0%, transparent 70%);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
